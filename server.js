@@ -53,11 +53,15 @@ app.post("/tasks", async (req, res) => {
 });
 
 app.patch("/tasks/:id/completed", async (req, res) => {
+  console.log(req.body, req.params);
   let taskRes = await Task.updateOne(
-    { id: req.params.id },
-    { completed: req.body }
+    { _id: req.params.id },
+    { completed: req.body.completed }
   );
-  res.send(taskRes);
+  console.log(taskRes);
+  let tasks = await Task.find();
+  console.log(tasks);
+  res.send(tasks);
 });
 
 app.listen(port, () => {

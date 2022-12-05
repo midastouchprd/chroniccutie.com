@@ -40,22 +40,21 @@ function App() {
       return task;
     });
     setTasks(newTasks);
-    await axios.patch(
-      `http://localhost:8080/tasks/${task._id}/completed`,
-      e.target.checked
-    );
+    await axios.patch(`http://localhost:8080/tasks/${task._id}/completed`, {
+      completed: e.target.checked,
+    });
   };
 
   const handleSubmitTask = async () => {
-    let newTask = { label: taskLabel, img_url: taskBadge, completed: false };
+    let newTask = { label: taskLabel, img_src: taskBadge, completed: false };
     console.log(newTask);
-    // await axios.post("http://localhost:8080/tasks", newTask);
-    // fetchTasks();
+    await axios.post("http://localhost:8080/tasks", newTask);
+    fetchTasks();
   };
 
   useEffect(() => {
     fetchTasks();
-  }, [tasks]);
+  }, []);
 
   return (
     <Container bg="#B2A1ED" w="100%" p={4} color="white" centerContent>
@@ -107,7 +106,11 @@ function App() {
               color="white"
               centerContent
             >
-              <Checkbox onChange={(e) => handleChange(e, task)}>
+              <Checkbox
+                isChecked={task.completed}
+                colorScheme="green"
+                onChange={(e) => handleChange(e, task)}
+              >
                 {task.label}
               </Checkbox>
               {task.completed && (
