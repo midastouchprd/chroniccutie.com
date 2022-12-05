@@ -14,13 +14,14 @@ import "./index.css";
 import { Checkbox } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import axios from "axios";
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [taskLabel, setTaskLabel] = useState("");
   const [taskBadge, setTaskBadge] = useState("");
 
   const fetchTasks = async () => {
-    let tasks = await axios.get("http://localhost:8080/tasks");
+    let tasks = await axios.get(`/tasks`);
     setTasks(tasks.data);
   };
 
@@ -39,14 +40,14 @@ function App() {
       return task;
     });
     setTasks(newTasks);
-    await axios.patch(`http://localhost:8080/tasks/${task._id}/completed`, {
+    await axios.patch(`/tasks/${task._id}/completed`, {
       completed: e.target.checked,
     });
   };
 
   const handleSubmitTask = async () => {
     let newTask = { label: taskLabel, img_src: taskBadge, completed: false };
-    await axios.post("http://localhost:8080/tasks", newTask);
+    await axios.post("/tasks", newTask);
     fetchTasks();
   };
 
