@@ -21,7 +21,8 @@ function App() {
   const [taskBadge, setTaskBadge] = useState("");
 
   const fetchTasks = async () => {
-    let tasks = await axios.get(`/tasks`);
+    let tasks = await axios.get(`/tasks`).catch((err) => console.log(err));
+    console.log(tasks);
     setTasks(tasks.data);
   };
 
