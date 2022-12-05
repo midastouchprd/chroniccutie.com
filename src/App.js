@@ -21,7 +21,6 @@ function App() {
 
   const fetchTasks = async () => {
     let tasks = await axios.get("http://localhost:8080/tasks");
-    console.log(tasks);
     setTasks(tasks.data);
   };
 
@@ -47,7 +46,6 @@ function App() {
 
   const handleSubmitTask = async () => {
     let newTask = { label: taskLabel, img_src: taskBadge, completed: false };
-    console.log(newTask);
     await axios.post("http://localhost:8080/tasks", newTask);
     fetchTasks();
   };
