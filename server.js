@@ -42,18 +42,18 @@ app.use(express.urlencoded());
 app.use("/", express.static(path.join(__dirname, "build")));
 app.use(cors());
 
-app.get("/tasks", async (req, res) => {
+app.get("/api/tasks", async (req, res) => {
   let tasks = await Task.find();
   console.logs(tasks);
-  res.send(tasks);
+  res.json(tasks);
 });
 
-app.post("/tasks", async (req, res) => {
+app.post("/api//tasks", async (req, res) => {
   let taskRes = await Task.create(req.body);
-  res.send(taskRes);
+  res.json(taskRes);
 });
 
-app.patch("/tasks/:id/completed", async (req, res) => {
+app.patch("/api//tasks/:id/completed", async (req, res) => {
   console.log(req.body, req.params);
   let taskRes = await Task.updateOne(
     { _id: req.params.id },
@@ -62,7 +62,7 @@ app.patch("/tasks/:id/completed", async (req, res) => {
   console.log(taskRes);
   let tasks = await Task.find();
   console.log(tasks);
-  res.send(taskRes);
+  res.json(taskRes);
 });
 
 app.listen(port, () => {
