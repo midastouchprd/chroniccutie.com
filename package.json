@@ -26,7 +26,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run build && node server.js",
+    "start-dev": "react-scripts start",
     "watch:build": "npm-watch build",
     "build": "react-scripts build",
     "test": "react-scripts test",
